@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference Architecture - Canada.ca</title>
+    <style>
+        /* Reset and base styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Lato, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #fff;
+        }
+
+        /* Global Header */
+        .header {
+            background-color: #fff;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .gc-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            padding: 0.5rem;
+        }
+
+        .flag-symbol {
+            width: 40px;
+            height: 20px;
+            background-color: #eb2d37;
+            margin-right: 10px;
+        }
+
+        .gc-title {
+            color: #000;
+            font-size: 1.2em;
+            line-height: 1.1;
+        }
+        .page-title {
+            color: #000;
+            font-size: 2.5em;
+            text-align: center;
+        }    
+
+        .lang-toggle {
+            color: #284162;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 2px solid #284162;
+            border-radius: 3px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .lang-toggle:hover,
+        .lang-toggle:focus {
+            color: #0535d2;
+            border-color: #0535d2;
+            background-color: rgba(5, 53, 210, 0.1);
+            outline: none;
+        }
+
+        .lang-toggle:focus {
+            box-shadow: 0 0 0 3px rgba(5, 53, 210, 0.3);
+        }
+
+        /* Main Content Structure */
+        .container {
+            max-width: 1900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .row {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .box-1 {
+            background-color: #bde2ed;
+            border: 1.5px solid #0f0f0f;
+            padding: 1.5rem;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .box-2 {
+            background-color: #3095b4;
+            border: 1.5px solid #0f0f0f;
+            padding: 1.5rem;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .box-3 {
+            background-color: #9dc3e6;
+            border: 1.5px solid #0f0f0f;
+            padding: 1.5rem;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .box-4 {
+            background-color: #8497b0;
+            border: 1.5px solid #0f0f0f;
+            padding: 1.5rem;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .box-5 {
+            background-color: #dae3f3;
+            border: 1.5px solid #0f0f0f;
+            padding: 1.5rem;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .box-6 {
+            background-color: #d9d9d9;
+            border: 1.5px solid #0f0f0f;
+            padding: 1.5rem;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 300px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .box-title {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .inner-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .inner-box:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .inner-box.active {
+            background-color: #f8f9fa;
+            border-color: #284162;
+        }
+
+        .component-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            vertical-align: top;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .inner-box {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: max-content;
+            min-height: 80px;
+            align-items: flex-start;  /* Align content to top */
+            justify-content: flex-start; /* Align content to top */
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 1rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .inner-box > * {
+            width: 100%;  /* Ensure children take full width */
+        }
+
+        .inner-box.active {
+            height: max-content;
+            align-items: flex-start;
+            
+            width: 100%;
+        }
+
+        .component-description {
+            display: none;
+            background-color: #f8f9fa;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border-top: 1px solid #ddd;
+            text-align: left;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .inner-box.active {
+            border-color: #284162;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .inner-box.active .component-description {
+            display: block;
+        }
+
+        /* Print styles */
+        @media print {
+            .inner-box {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                border: 1px solid #000;
+                margin-bottom: 1rem;
+            }
+
+            .component-description {
+                display: block !important;
+                border-top: 1px solid #000;
+            }
+
+            .inner-box.active {
+                border-color: #000;
+                box-shadow: none;
+            }
+
+            .header, .lang-toggle {
+                display: none;
+            }
+
+            /* Show both languages in print */
+            .fr, .en {
+                display: block !important;
+            }
+
+            .fr::before {
+                content: "(Français) ";
+                font-weight: bold;
+            }
+
+            .en::before {
+                content: "(English) ";
+                font-weight: bold;
+            }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .inner-boxes {
+                grid-template-columns: 1fr;
+            }
+
+            .inner-box {
+                margin-bottom: 1rem;
+            }
+            
+            .component-description {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Language Toggle Content */
+        .fr {
+            display: none;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid #ddd;
+            padding: 1.5rem 1rem;
+            margin-top: 2rem;
+            background-color: #f8f8f8;
+        }
+
+        .date-modified {
+            font-size: 0.9em;
+            color: #666;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+
+            .box {
+                min-width: 100%;
+            }
+
+            .inner-boxes {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .lang-toggle .full-text {
+                display: none;
+            }
+
+            .lang-toggle .short-text {
+                display: inline;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .lang-toggle .full-text {
+                display: inline;
+            }
+
+            .lang-toggle .short-text {
+                display: none;
+            }
+        }
+        /* Arrow Styling */
+        .arrow {
+            position:absolute;
+            width: 5px;
+            background-color: #000000;
+            z-index: 10;
+            
+        }
+        .arrow::before,
+        .arrow::after {
+            content: "";
+            position: absolute;
+            border-style: solid;
+            border-width: 7px 7px 0 7px;
+            border-color: #000000 transparent transparent transparent;
+        }
+
+        /* Arrowhead at the start */
+        .arrow.down::before {
+            top: -7px; /* Position it correctly */
+            left: -4.3px;
+            transform: rotate(180deg);
+        }
+
+        /* Arrowhead at the end */
+        .arrow.down::after {
+            bottom: -7px;
+            right: -4.3px;
+        }
+        /* Horizontal arrows (adjust rotation for left/right) */
+        .arrow.right::before {
+            top: 50%;
+            left: -7px;
+            transform: translateY(-50%) rotate(90deg); /* Points left */
+        }
+
+        .arrow.right::after {
+            top: 50%;
+            right: -7px;
+            transform: translateY(-50%) rotate(-90deg); /* Points right */
+        }
+        
+
+        /* Specific positioning */
+        .arrow.right {
+            top: 50%;
+            left: 100%;
+            height: 5px;
+            width: 50px;
+            transform: translateY(-50%);
+        }
+
+        .arrow.down {
+            left: 50%;
+            top: 100%;
+            height: 50px;
+            width: 5px;
+            transform: translateX(-50%);
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header" role="banner">
+        <a href="#" class="gc-logo" aria-label="Government of Canada">
+            <div class="flag-symbol" role="img" aria-label="Canada Flag">
+                <img src="flag.png" height="20px" width="60px"></img>
+            </div>
+            <div class="gc-title">
+                <span class="en">Government of Canada</span>
+                <span class="fr">Gouvernement du Canada</span>
+            </div>
+        </a>
+        <div class="page-title">
+            <span class="en">Cyber Security Reference Architecture</span>
+            <span class="fr">Architecture de référence en cybersécurité</span>
+        </div>
+        <button class="lang-toggle" onclick="toggleLanguage()" aria-label="Toggle language">
+            <span class="full-text en">Français</span>
+            <span class="full-text fr">English</span>
+            <span class="short-text en">FR</span>
+            <span class="short-text fr">EN</span>
+        </button>
+    </header>
+
+    <main class="container" role="main">
+        <!-- Row 1: Governance, Users, and Identity sections -->
+        <div class="row">
+            <!-- Governance, Risk & Compliance -->
+            <div class="box-1">
+                <h2 class="box-title">
+                    <span class="en">Governance, Risk & Compliance</span>
+                    <span class="fr">Gouvernance, Risque et Conformité</span>
+                </h2>
+                <div class="inner-boxes">
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">GRC Platform</span>
+                            <span class="fr">Plateforme GRC</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Manages an organization's policies, controls and risks, and measures compliance.</span>
+                            <span class="fr">Gère les politiques, les contrôles et les risques d'une organisation, et mesure la conformité.</span>
+                        </div>
+                    </div>
+                    <div class="description-box"></div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Cloud Security Posture Management</span>
+                            <span class="fr">Gestion de la Posture de Sécurité du Cloud</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Audits and manages the security of cloud resources and configurations.</span>
+                            <span class="fr">Audite et gère la sécurité des ressources et des configurations cloud.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Configuration Compliance & Monitoring Tools</span>
+                            <span class="fr">Outils de conformité et de surveillance de la configuration</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Audits and verifies whether systems and configurations continue to comply with approved baselines.</span>
+                            <span class="fr">Audite et vérifie si les systèmes et les configurations continuent de se conformer aux bases approuvées.</span>
+                        </div>
+                    </div>
+                    <div class="arrow right" style="top: 50%; left: 97%">
+                        <div class="arrow-head"></div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Users -->
+            <div class="box-1">
+                <h2 class="box-title">
+                    <span class="en">Users</span>
+                    <span class="fr">Utilisateurs</span>
+                </h2>
+                <div class="inner-boxes">
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Security Awareness Learning Platform</span>
+                            <span class="fr">Plateforme d'apprentissage de la sensibilisation à la sécurité</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Educates and raises awareness among users about various security threats and best practices.</span>
+                            <span class="fr">Éduque et sensibilise les utilisateurs aux diverses menaces de sécurité et aux meilleures pratiques.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Security Awareness Testing Solution</span>
+                            <span class="fr">Solution de test de sensibilisation à la sécurité</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Generates awareness campaign simulations (e.g. social engineering, phishing, etc.)/tests to assess and enhance the knowledge and awareness of security threats among personnel.</span>
+                            <span class="fr">Génère des simulations de campagnes de sensibilisation (par exemple, ingénierie sociale, phishing, etc.)/tests pour évaluer et améliorer les connaissances et la sensibilisation aux menaces de sécurité parmi le personnel.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Personnel Security Screening Platform</span>
+                            <span class="fr">Plateforme de contrôle de sécurité du personnel</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Manages and processes personnel security clearances and background checks.</span>
+                            <span class="fr">Gère et traite les habilitations de sécurité du personnel et les vérifications des antécédents.</span>
+                        </div>
+                    </div>
+                    <div class="arrow right" style="top: 50%; left: 97%">
+                        <div class="arrow-head"></div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <!-- Identity -->
+            <div class="box-1">
+                <h2 class="box-title">
+                    <span class="en">Identity, Credential & Access Management</span>
+                    <span class="fr">Gestion des identités, des identifiants et des accès</span>
+                </h2>
+                <div class="inner-boxes">
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Identity Governance & Administration</span>
+                            <span class="fr">Gouvernance et administration des identités</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Administer and control user identities and relevant attributes that are used for authentication and authorization.</span>
+                            <span class="fr">Administrer et contrôler les identités des utilisateurs et les attributs pertinents utilisés pour l'authentification et l'autorisation.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Credential Management</span>
+                            <span class="fr">Gestion des identifiants</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Securely store, distribute, and control access to user credentials, such as usernames and passwords, and audit the use of privileged credentials.</span>
+                            <span class="fr">Stocker, distribuer et contrôler de manière sécurisée l'accès aux identifiants des utilisateurs, tels que les noms d'utilisateur et les mots de passe, et auditer l'utilisation des identifiants privilégiés.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Privileged Access Management</span>
+                            <span class="fr">Gestion des accès privilégiés</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Control and monitor access to critical systems and data, especially for privileged users, to minimize security risks.</span>
+                            <span class="fr">Contrôler et surveiller l'accès aux systèmes et aux données critiques, en particulier pour les utilisateurs privilégiés, afin de minimiser les risques de sécurité.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Single Sign-On (SSO)</span>
+                            <span class="fr">Identification Unique (IU)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Allows users to access multiple application services without having to authenticate separately to each service.</span>
+                            <span class="fr">Permet aux utilisateurs d'accéder à plusieurs services d'application sans avoir à s'authentifier séparément pour chaque service.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Multi-Factor Authentication (MFA)</span>
+                            <span class="fr">Authentification multi-facteurs (AMF)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Enhances security by requiring two or more different forms of verification (factors) to successfully authenticate a user. This applies to external connections as well as internal sensitive access.</span>
+                            <span class="fr">Renforce la sécurité en exigeant deux formes de vérification différentes ou plus (facteurs) pour authentifier un utilisateur avec succès. Cela s'applique aux connexions externes ainsi qu'aux accès internes sensibles.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Row 2: Endpoints - Single full-width box with 9 inner boxes -->
+        <div class="row">
+            <div class="box-2" style="flex: 0 0 100%;">
+                <div class="arrow down" style="top: -40px; left: 50%;">
+                    <div class="arrow-head"></div>
+                </div>
+                <div class="arrow down" style="top: -40px; left: 83%;">
+                    <div class="arrow-head"></div>
+                </div>
+                <h2 class="box-title">
+                    <span class="en">Endpoints</span>
+                    <span class="fr">Points de terminaison</span>
+                </h2>
+                <div class="inner-boxes">
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Anti-malware/Sandboxing</span>
+                            <span class="fr">Anti-malware/Bac à sable</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Detects, analyzes (in a secure "sandboxed" environment as necessary), and removes malicious software from endpoints.</span>
+                            <span class="fr">Détecte, analyse (dans un environnement sécurisé "bac à sable" si nécessaire) et supprime les logiciels malveillants des points de terminaison.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Device Storage Encryption</span>
+                            <span class="fr">Chiffrement du stockage des appareils</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Encrypt data on devices to protect data at rest from unauthorized access in case the device is lost or stolen.</span>
+                            <span class="fr">Chiffre les données sur les appareils pour protéger les données au repos contre tout accès non autorisé en cas de perte ou de vol de l'appareil.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Host Firewall/IDS/IPS</span>
+                            <span class="fr">Pare-feu hôte/IDS/IPS</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Protect individual endpoints by analyzing and controlling incoming and outgoing network traffic, detecting, and preventing intrusions and malicious activities at the host level.</span>
+                            <span class="fr">Protège les points de terminaison individuels en analysant et en contrôlant le trafic réseau entrant et sortant, en détectant et en empêchant les intrusions et les activités malveillantes au niveau de l'hôte.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Endpoint Detection & Response (EDR)</span>
+                            <span class="fr">Détection et réponse des points de terminaison (EDR)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Perform advanced monitoring for and response to threats on local devices, helping to protect against advanced threats and attacks.</span>
+                            <span class="fr">Effectue une surveillance avancée et une réponse aux menaces sur les appareils locaux, aidant à se protéger contre les menaces et les attaques avancées.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Device Management</span>
+                            <span class="fr">Gestion des appareils</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Control, monitor, and securely configure devices, such as smartphones and tablets.</span>
+                            <span class="fr">Contrôle, surveille et configure de manière sécurisée les appareils, tels que les smartphones et les tablettes.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Mobile Threat Defense (MTD)</span>
+                            <span class="fr">Défense contre les menaces mobiles (MTD)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Detect the presence of malicious apps, network-based attacks, phishing attacks, improper configurations, and known vulnerabilities in mobile apps or the mobile operating system itself.</span>
+                            <span class="fr">Détecte la présence d'applications malveillantes, d'attaques basées sur le réseau, d'attaques de phishing, de configurations incorrectes et de vulnérabilités connues dans les applications mobiles ou le système d'exploitation mobile lui-même.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Privileged Access Workstations</span>
+                            <span class="fr">Stations de travail à accès privilégié</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Highly secured and isolated workstations used for sensitive tasks to reduce the risk of privilege escalation attacks.</span>
+                            <span class="fr">Stations de travail hautement sécurisées et isolées utilisées pour des tâches sensibles afin de réduire le risque d'attaques d'escalade de privilèges.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">IoT/OT Protection Solutions</span>
+                            <span class="fr">Solutions de protection IoT/OT</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Protect Internet of Things (IoT) and Operational Technology (OT) devices and networks that are not capable of running traditional anti-malware or EDR solutions.</span>
+                            <span class="fr">Protégez les appareils et réseaux de l’Internet des objets (IoT) et de la technologie opérationnelle (OT) qui ne peuvent pas exécuter de solutions anti-malware ou EDR traditionnelles.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Application Management/Control</span>
+                            <span class="fr">Gestion/contrôle des applications</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Allow or deny the installation and execution of specific applications on a system, enhancing security by controlling software access. Protect against web-based threats by isolating web browsing sessions from the local environment.</span>
+                            <span class="fr">Autorisez ou bloquez l’installation et l’exécution d’applications spécifiques sur un système, renforçant ainsi la sécurité en contrôlant l’accès aux logiciels. Protégez contre les menaces basées sur le web en isolant les sessions de navigation du système local.</span>
+                        </div>
+                    </div>
+                </div>
+                
+               
+            </div>
+        </div>
+
+        
+
+        <!-- Row 3: Data Protections and Applications -->
+        <div class="row">
+            <!-- Data Protection -->
+            <div class="box-3">
+                <div class="arrow down" style="top: -40px; left: 50%;">
+                    <div class="arrow-head"></div>
+                </div>
+                <div class="arrow down" style="top: -40px; left: 155%;">
+                    <div class="arrow-head"></div>
+                </div>
+                
+                <h2 class="box-title">
+                    <span class="en">Data Protection</span>
+                    <span class="fr">Protection des données</span>
+                </h2>
+                <div class="inner-boxes">
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Data Tagging/Classification</span>
+                            <span class="fr">Étiquetage/classification des données</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Apply labels and tags to information objects to support access control, information rights management, forensics, time-of-use, data integrity, trust levels, and availability.</span>
+                            <span class="fr">Applique des étiquettes et des balises aux objets d'information pour soutenir le contrôle d'accès, la gestion des droits d'information, la criminalistique, le temps d'utilisation, l'intégrité des données, les niveaux de confiance et la disponibilité.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">File Integrity Monitoring (FIM)</span>
+                            <span class="fr">Surveillance de l'intégrité des fichiers (FIM)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Monitor and alert on changes to critical files.</span>
+                            <span class="fr">Surveille et alerte sur les modifications des fichiers critiques.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Secrets Management</span>
+                            <span class="fr">Gestion des secrets</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Securely store and manage sensitive information, such as cryptographic keys and API tokens.</span>
+                            <span class="fr">Stocke et gère de manière sécurisée les informations sensibles, telles que les clés cryptographiques et les jetons API.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Cyber Fraud Detection & Prevention Tools</span>
+                            <span class="fr">Outils de détection et de prévention de la fraude cybernétique</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Identify and prevent fraudulent activities in digital environments.</span>
+                            <span class="fr">Identifie et prévient les activités frauduleuses dans les environnements numériques.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Data Loss/Leakage Prevention (DLP)</span>
+                            <span class="fr">Prévention des pertes de données (DLP)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Detect/prevent sensitive data from being unintentionally or maliciously leaked or lost through various channels (email, web upload, etc.).</span>
+                            <span class="fr">Détecte/prévient la fuite ou la perte de données sensibles de manière involontaire ou malveillante par divers canaux (email, téléchargement web, etc.).</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Information Rights Management</span>
+                            <span class="fr">Gestion des droits d'information</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Manage, control and track the usage and sharing of digital content and documents.</span>
+                            <span class="fr">Gère, contrôle et suit l'utilisation et le partage de contenu et de documents numériques.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Information Disposal & Media Sanitization</span>
+                            <span class="fr">Élimination des informations et assainissement des supports</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Securely render data written on media unrecoverable by both ordinary and extraordinary means.</span>
+                            <span class="fr">Rend de manière sécurisée les données écrites sur les supports irrécupérables par des moyens ordinaires et extraordinaires.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications -->
+            <div class="box-3">
+                <h2 class="box-title">
+                    
+                    <span class="en">Applications</span>
+                    <span class="fr">Applications</span>
+                </h2>
+                <div class="inner-boxes">
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Web Application Firewall</span>
+                            <span class="fr">Pare-feu d'application web</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Protect web applications from various online threats and attacks at the application layer.</span>
+                            <span class="fr">Protéger les applications web contre diverses menaces et attaques en ligne au niveau de l'application.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Application Security Testing Tools</span>
+                            <span class="fr">Outils de test de sécurité des applications</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Analyze, test and perform code reviews of applications during development phases for security vulnerabilities.</span>
+                            <span class="fr">Analyser, tester et effectuer des revues de code des applications pendant les phases de développement pour les vulnérabilités de sécurité.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Secure Development Lifecycle Management</span>
+                            <span class="fr">Gestion du cycle de vie du développement sécurisé</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Manage software development projects throughout their lifecycle and apply security practices at each stage to identify and remediate vulnerabilities early in the development lifecycle.</span>
+                            <span class="fr">Gérer les projets de développement logiciel tout au long de leur cycle de vie et appliquer des pratiques de sécurité à chaque étape pour identifier et remédier aux vulnérabilités dès le début du cycle de vie du développement.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">API Security/Gateway</span>
+                            <span class="fr">Sécurité des API/passerelle</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Secure and monitor application programming interfaces (APIs) that facilitate communication between different software systems.</span>
+                            <span class="fr">Sécuriser et surveiller les interfaces de programmation d'applications (API) qui facilitent la communication entre différents systèmes logiciels.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Forward/Reverse Proxy & Bastion</span>
+                            <span class="fr">Proxy direct/inverse & bastion</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Intercepts traffic and closes straight paths between internal and external networks, increasing complexity for attackers and further protects internal resources from external threats.</span>
+                            <span class="fr">Intercepte le trafic et ferme les chemins directs entre les réseaux internes et externes, augmentant la complexité pour les attaquants et protégeant davantage les ressources internes contre les menaces externes.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Email Security</span>
+                            <span class="fr">Sécurité des e-mails</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Protect email communications from threats such as phishing, malware and spam. Also includes secure configuration of email systems.</span>
+                            <span class="fr">Protéger les communications par e-mail contre les menaces telles que le phishing, les logiciels malveillants et le spam. Comprend également la configuration sécurisée des systèmes de messagerie.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Database Security, Data Masking, Tokenization</span>
+                            <span class="fr">Sécurité des bases de données, masquage des données, tokenisation</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Protect databases and their contents and monitor activity at the database level and protecting data extracts (e.g. masking data for test purposes).</span>
+                            <span class="fr">Protéger les bases de données et leur contenu et surveiller l'activité au niveau de la base de données et protéger les extraits de données (par exemple, masquage des données à des fins de test).</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Row 4: Perimeter and Network Security -->
+        <div class="row">
+            <div class="box-4" style="flex: 0 0 100%;">
+                <div class="arrow down" style="top: -40px; left: 25%;">
+                    <div class="arrow-head"></div>
+                </div>
+                <div class="arrow down" style="top: -40px; left: 75%;">
+                    <div class="arrow-head"></div>
+                </div>
+                <h2 class="box-title">
+                    <span class="en">Perimeter and Network Security</span>
+                    <span class="fr">Sécurité du périmètre et du réseau</span>
+                </h2>
+                <div class="inner-boxes">
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Firewall</span>
+                            <span class="fr">Pare-feu</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Inspect inbound and outbound traffic and limit access between networks in accordance with defined security rules.</span>
+                            <span class="fr">Inspecter le trafic entrant et sortant et limiter l'accès entre les réseaux conformément aux règles de sécurité définies.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Secure DNS</span>
+                            <span class="fr">DNS sécurisé</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Employ encryption and authentication to enhance security and protect against DNS-related attacks. Also includes safeguards for registered domains (domain lock, MFA, etc.).</span>
+                            <span class="fr">Utiliser le chiffrement et l'authentification pour améliorer la sécurité et se protéger contre les attaques liées au DNS. Inclut également des protections pour les domaines enregistrés (verrouillage de domaine, MFA, etc.).</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Secure Remote Access</span>
+                            <span class="fr">Accès à distance sécurisé</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Enable secure access to organizational resources from networks external to the information system security perimeter.</span>
+                            <span class="fr">Permettre un accès sécurisé aux ressources organisationnelles à partir de réseaux externes au périmètre de sécurité du système d'information.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Network Segmentation</span>
+                            <span class="fr">Segmentation du réseau</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Enable dividing a network into separate segments or subnetworks to improve security and manageability.</span>
+                            <span class="fr">Permettre de diviser un réseau en segments ou sous-réseaux distincts pour améliorer la sécurité et la gestion.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Cross-Domain Security Solutions</span>
+                            <span class="fr">Solutions de sécurité inter-domaines</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">A form of controlled interface that provides the ability to manually and/or automatically access and/or transfer information between different security domains.</span>
+                            <span class="fr">Une interface contrôlée permettant d’accéder et/ou de transférer manuellement et/ou automatiquement des informations entre différents domaines de sécurité.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Network Access Control (NAC)</span>
+                            <span class="fr">Contrôle d'accès réseau (NAC)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Control access to a network based on a device's compliance with security and policy requirements.</span>
+                            <span class="fr">Contrôler l'accès à un réseau en fonction de la conformité d'un appareil aux exigences de sécurité et de politique.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Network Device Authentication (NDA)</span>
+                            <span class="fr">Authentification des appareils réseau (NDA)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Ensure lifecycle management of non-person entity (NPE) certificates and provides reporting on authentication, authorization, and auditing (AAA) transactions for security auditing, compliance and service improvement.</span>
+                            <span class="fr">Assurer la gestion du cycle de vie des certificats d'entité non-personne (NPE) et fournir des rapports sur l'authentification, l’autorisation et l’audit (AAA) pour le suivi de la sécurité, la conformité et l’amélioration des services.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Web & Content Filtering/Sandboxing</span>
+                            <span class="fr">Filtrage web & de contenu/bac à sable</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Restrict access to specific websites or content categories and/or brings content into secure environment for further analysis to enhance security and productivity.</span>
+                            <span class="fr">Restreindre l'accès à des sites web ou des catégories de contenu spécifiques et amener le contenu dans un environnement sécurisé pour une analyse approfondie visant à améliorer la sécurité et la productivité.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Wi-Fi Secure Access</span>
+                            <span class="fr">Accès Wi-Fi sécurisé</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Protect wireless networks and data transmitted over Wi-Fi.</span>
+                            <span class="fr">Protéger les réseaux sans fil et les données transmises via Wi-Fi.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">DDoS Protection</span>
+                            <span class="fr">Protection DDoS</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Scale network capacity and filter web traffic to mitigate Distributed Denial of Service (DDoS) attacks, which aim to overwhelm a network or service.</span>
+                            <span class="fr">Augmenter la capacité du réseau et filtrer le trafic web pour atténuer les attaques par déni de service distribué (DDoS), qui visent à submerger un réseau ou un service.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Virtual Private Cloud (VPC) Connectivity</span>
+                            <span class="fr">Connectivité cloud privé virtuel (VPC)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Secure connections for cloud-based infrastructure such as dedicated communications lines with cloud provider datacenters.</span>
+                            <span class="fr">Connexions sécurisées pour l'infrastructure basée sur le cloud telles que les lignes de communication dédiées avec centres de données des fournisseurs de cloud.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Edge Security Services/CASB</span>
+                            <span class="fr">Services de sécurité Edge/CASB</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Provide visibility and control over cloud applications and data accessed by a department or agency.</span>
+                            <span class="fr">Fournir une visibilité et un contrôle sur les applications cloud et les données accessibles par un département ou une agence.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Network IDS/IPS</span>
+                            <span class="fr">IDS/IPS réseau</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Perform packet sniffing and network traffic analysis to identify suspicious activity and record relevant information. Network Intrusion Prevention Systems not only identify but also actively block or mitigate activity from identified threats to safeguard the network.</span>
+                            <span class="fr">Effectuer une analyse du trafic réseau et du sniffing de paquets pour identifier les activités suspectes et enregistrez les informations pertinentes. Les systèmes de prévention des intrusions réseau identifient, mais aussi bloquent ou atténuent activement les activités des menaces détectées pour protéger le réseau.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 5: Security Operations -->
+        <div class="row">
+            <div class="box-5" style="flex: 0 0 100%;">
+                <div class="arrow down" style="top: -40px; left: 50%;">
+                    <div class="arrow-head"></div>
+                </div>
+                <h2 class="box-title">
+                    <span class="en">Security Operations</span>
+                    <span class="fr">Opérations de sécurité</span>
+                </h2>
+                <div class="inner-boxes">
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">User & Entity Behavior Analysis (UEBA)</span>
+                            <span class="fr">Analyse du comportement des utilisateurs et des entités (UEBA)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Analyze and monitor user and entity behaviors to detect and respond to abnormal or suspicious activities.</span>
+                            <span class="fr">Analyser et surveiller les comportements des utilisateurs et des entités pour détecter et répondre aux activités anormales ou suspectes.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Deceptive Technologies</span>
+                            <span class="fr">Technologies de déception</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Deceive attackers into performing actions on technology assets and monitor attacker activity and tactics. Examples include honeypots and honeynets.</span>
+                            <span class="fr">Tromper les attaquants en leur faisant effectuer des actions sur des actifs technologiques et surveiller l'activité et les tactiques des attaquants. Les exemples incluent les pots de miel et les réseaux de pots de miel.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Threat Intelligence Platform</span>
+                            <span class="fr">Plateforme de renseignement sur les menaces</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Collects threat information from GC and non-GC sources. Performs threat analytics and malware reverse engineering to provide configuration management direction for the enterprise.</span>
+                            <span class="fr">Collecte des informations sur les menaces auprès de sources GC et non-GC. Effectue des analyses de menaces et de l'ingénierie inverse de logiciels malveillants pour fournir des directives de gestion de la configuration pour l'entreprise.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Security Incident Management Platform</span>
+                            <span class="fr">Plateforme de gestion des incidents de sécurité</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">A centralized system for handling and responding to cybersecurity incidents, including recordkeeping.</span>
+                            <span class="fr">Un système centralisé pour gérer et répondre aux incidents de cybersécurité, y compris la tenue des dossiers.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Logging & Auditing Tools</span>
+                            <span class="fr">Outils de journalisation et d'audit</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Record and analyze log data to detect/audit and investigate non-compliance and monitor file activity.</span>
+                            <span class="fr">Enregistrer et analyser les données des journaux pour détecter/auditer et enquêter sur la non-conformité et surveiller l'activité des fichiers.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Security Information & Event Management</span>
+                            <span class="fr">Gestion des informations et des événements de sécurité</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Provide the ability to gather security data from information system components, correlate aggregated data, and present that data as actionable information via a single interface.</span>
+                            <span class="fr">Fournir la capacité de collecter des données de sécurité à partir des composants du système d'information, de corréler les données agrégées et de présenter ces données sous forme d'informations exploitables via une interface unique.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Security Orchestration, Automation and Response (SOAR)</span>
+                            <span class="fr">Orchestration, automatisation et réponse de sécurité (OARS)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Coordination of various security capabilities and tooling to facilitate faster, more effective incident response while allowing for detailed, actionable incident forensics.</span>
+                            <span class="fr">Coordination de diverses capacités et outils de sécurité pour faciliter une réponse aux incidents plus rapide et plus efficace tout en permettant une analyse forensique détaillée et exploitable des incidents.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Extended Detection & Response</span>
+                            <span class="fr">Détection et réponse étendues</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Build on the capabilities of traditional Endpoint Detection and Response solutions to provide broader visibility and protection by analyzing data across multiple assets and enabling granular analysis and investigation on multiple assets concurrently. These solutions help incident responders perform further analysis and take action on endpoints.</span>
+                            <span class="fr">S'appuyer sur les capacités des solutions traditionnelles de détection et de réponse des points de terminaison pour fournir une visibilité et une protection plus larges en analysant les données sur plusieurs actifs et en permettant une analyse et une investigation granulaires sur plusieurs actifs simultanément. Ces solutions aident les intervenants en cybersécurité à effectuer des analyses approfondies et à prendre des mesures sur les terminaux.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Vulnerability Scanners</span>
+                            <span class="fr">Scanners de vulnérabilités</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Identify systems/system attributes and associated vulnerabilities (Common Vulnerabilities & Exposures (CVEs), Common Weakness Enumerations (CWEs), and others).</span>
+                            <span class="fr">Identifier les systèmes/attributs du système et les vulnérabilités associées (Vulnérabilités et expositions communes (CVE), Énumérations de faiblesses communes (CWE), et autres).</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Security Testing Tools (Pentesting)</span>
+                            <span class="fr">Outils de test de sécurité (Pentesting)</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Perform various penetration testing activities such as network sniffing, exploit development and data exfiltration.</span>
+                            <span class="fr">Réalisez diverses activités de test d’intrusion telles que l’écoute du réseau, le développement d’exploits et l’exfiltration de données.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Attack Surface Management</span>
+                            <span class="fr">Gestion de la surface d’attaque</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Monitor and manage an organization's attack surface, which includes all possible points of entry for attackers.</span>
+                            <span class="fr">Surveillez et gérez la surface d’attaque d’une organisation, incluant tous les points d’entrée potentiels pour les attaquants.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Digital Forensics Tools</span>
+                            <span class="fr">Outils de criminalistique numérique</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Collect, analyze, and preserve digital evidence during investigations.</span>
+                            <span class="fr">Collectez, analysez et préservez les preuves numériques lors d’enquêtes.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- Row 6: Alignment with IT Technologies - Single full-width box with 11 inner boxes -->
+        <div class="row">
+            <div class="box-6" style="flex: 0 0 100%;">
+                <div class="arrow down" style="top: -40px; left: 50%;">
+                    <div class="arrow-head"></div>
+                </div>
+                <h2 class="box-title">
+                    <span class="en">Alignment with IT Technologies</span>
+                    <span class="fr">Alignement avec les technologies de l'information</span>
+                </h2>
+                <div class="inner-boxes">
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Asset Management & Inventories</span>
+                            <span class="fr">Gestion des actifs et inventaires</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Manage the repository of GC assets throughout the asset lifecycle. Bridges supply chain security to security operations. Provides the authoritative baseline of assets (hardware, OS, software, and firmware) throughout the asset lifecycle.</span>
+                            <span class="fr">Gérer le référentiel des actifs du GC tout au long du cycle de vie des actifs. Relie la sécurité de la chaîne d'approvisionnement aux opérations de sécurité. Fournit la base de référence faisant autorité des actifs (matériel, OS, logiciel et micrologiciel) tout au long du cycle de vie des actifs.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Configuration Management & Hardening</span>
+                            <span class="fr">Gestion de la configuration et durcissement</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Maintain authoritative source of software and configuration data for the enterprise, map to assets, push software, OS, firmware, and configuration changes to elements of the enterprise. Automatically assess configuration settings of system components and ensure that all deployed and authorized IT assets have approved configuration settings and maintain the authoritative change history allowing for roll back to previously approved configurations.</span>
+                            <span class="fr">Maintenir la source faisant autorité des logiciels et des données de configuration pour l'entreprise, mapper aux actifs, pousser les logiciels, l'OS, le micrologiciel et les changements de configuration aux éléments de l'entreprise. Évalue automatiquement les paramètres de configuration des composants du système et garantit que tous les actifs informatiques déployés et autorisés disposent de paramètres de configuration approuvés. Maintient un historique des modifications autorisé permettant de revenir à des configurations précédemment approuvées.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Request/Incident Tracking & Ticketing Solution</span>
+                            <span class="fr">Solution de suivi des demandes/incidents et de billetterie</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Tracks and manages IT requests and incidents.</span>
+                            <span class="fr">Suit et gère les demandes et incidents informatiques.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Health & Capacity Monitoring</span>
+                            <span class="fr">Surveillance de la santé et de la capacité</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Represents capabilities to actively identify issues (anomalies) through diagnostic querying, scans, and/or system health and status parameters.</span>
+                            <span class="fr">Représente les capacités d'identifier activement les problèmes (anomalies) par des requêtes de diagnostic, des analyses et/ou des paramètres de santé et d'état du système.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Patch Management</span>
+                            <span class="fr">Gestion des correctifs</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Apply updates/patches to software and systems to address vulnerabilities, bug fixes and upgrades.</span>
+                            <span class="fr">Appliquer des mises à jour/correctifs aux logiciels et systèmes pour résoudre les vulnérabilités, les corrections de bogues et les mises à niveau.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Backup Management/ Resilience</span>
+                            <span class="fr">Gestion des sauvegardes/ résilience</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Manage and monitor data backups and testing restoration to support business resilience.</span>
+                            <span class="fr">Gérer et surveiller les sauvegardes de données et tester la restauration pour soutenir la résilience des entreprises.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Incident & Crisis Simulation Platform</span>
+                            <span class="fr">Plateforme de simulation d'incidents et de crises</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Simulate cybersecurity incidents, facilitating the delivery of table-top exercises and preparation for cybersecurity incidents and crises.</span>
+                            <span class="fr">Simuler des incidents de cybersécurité, facilitant la réalisation d'exercices sur table et la préparation aux incidents et crises de cybersécurité.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Cryptography & Key Management</span>
+                            <span class="fr">Cryptographie et gestion des clés</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Manage cryptographic keys and their metadata (e.g., generation, distribution, storage, backup, archive, recovery, use, revocation, and destruction). Oversee, automate, and secure the key management process.</span>
+                            <span class="fr">Gérer les clés cryptographiques et leurs métadonnées (par exemple, génération, distribution, stockage, sauvegarde, archivage, récupération, utilisation, révocation et destruction). Superviser, automatiser et sécuriser le processus de gestion des clés.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Access Control & Directory Services</span>
+                            <span class="fr">Contrôle d'accès et services d'annuaire</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Manage and control user access to systems and technology resources (e.g. managing users in Active Directory).</span>
+                            <span class="fr">Gérer et contrôler l'accès des utilisateurs aux systèmes et aux ressources technologiques (par exemple, gestion des utilisateurs dans Active Directory).</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Software-Defined WAN</span>
+                            <span class="fr">WAN défini par logiciel</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">A wide area network that uses software-defined networking technology and a security controller that enforces security policies of its nodes, such as communicating over the Internet using overlay tunnels which are encrypted when destined for internal organization locations.</span>
+                            <span class="fr">Un réseau étendu qui utilise la technologie de réseau défini par logiciel et un contrôleur de sécurité qui applique les politiques de sécurité de ses nœuds, telles que la communication sur Internet via des tunnels superposés, qui sont chiffrés lorsqu’ils sont destinés aux emplacements internes de l’organisation.</span>
+                        </div>
+                    </div>
+                    <div class="inner-box" tabindex="0" role="button" aria-expanded="false">
+                        <div class="component-title">
+                            <span class="en">Mass Communications & Out-of-Band Communications Solution</span>
+                            <span class="fr">Solution de communications de masse et de communications hors bande</span>
+                        </div>
+                        <div class="component-description">
+                            <span class="en">Used to issue mass notifications during a disruption of traditional communications channels and enable personnel to continue to communicate and collaborate during a major disruption. Remains independent of an organization’s technology environment.</span>
+                            <span class="fr">Utilisé pour émettre des notifications de masse lors d'une perturbation des canaux de communication traditionnels et permettre au personnel de continuer à communiquer et collaborer lors d'une perturbation majeure. Reste indépendant de l’environnement technologique d’une organisation.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Footer -->
+        <footer class="footer" role="contentinfo">
+            <div class="date-modified">
+                <span class="en">Date modified: January 24, 2025</span>
+                <span class="fr">Date de modification : le 24 janvier 2025</span>
+            </div>
+        </footer>
+    </main>
+
+        <script>
+            let currentLang = 'en';
+            let activeBox = null;
+            // Function to get current language
+            function getCurrentLanguage() {
+                    return document.documentElement.lang === "fr" ? "fr" : "en";
+                }
+
+            // Function to toggle language
+            function toggleLanguage() {
+                const newLang = currentLang === "en" ? "fr" : "en";
+                document.documentElement.lang = newLang;
+
+                document.querySelectorAll(`.${currentLang}`).forEach(el => el.style.display = "none");
+                document.querySelectorAll(`.${newLang}`).forEach(el => el.style.display = "inline");
+
+                currentLang = newLang;
+                announceLanguageChange(newLang);
+            }
+            document.addEventListener("DOMContentLoaded", function () {
+                
+                const innerBoxes = document.querySelectorAll(".inner-box");
+
+                // Ensure hoverBox exists
+                
+
+                
+
+                // Function to announce language change
+                function announceLanguageChange(lang) {
+                    const announcement = document.createElement("div");
+                    announcement.setAttribute("role", "status");
+                    announcement.setAttribute("aria-live", "polite");
+                    announcement.style.position = "absolute";
+                    announcement.style.left = "-9999px";
+                    announcement.textContent = lang === "en" ? "Language changed to English" : "Langue changée en français";
+        
+                    document.body.appendChild(announcement);
+                    setTimeout(() => announcement.remove(), 1000);
+                }
+
+                // Function to handle inner box clicks (expands/collapses)
+                function handleInnerBoxClick(event) {
+                    const clickedBox = event.currentTarget;
+                    const wasActive = clickedBox.classList.contains('active');
+                
+                    // Simply toggle the active state of the clicked box
+                    clickedBox.classList.toggle('active');
+                    clickedBox.setAttribute('aria-expanded', !wasActive);
+                
+                    // Announce to screen readers
+                    announceDescriptionToggle(clickedBox, !wasActive);
+                }
+
+                // Function to announce expansion for screen readers
+                function announceDescriptionToggle(box, isExpanded) {
+                    const announcement = document.createElement("div");
+                    announcement.setAttribute("role", "status");
+                    announcement.setAttribute("aria-live", "polite");
+                    announcement.style.position = "absolute";
+                    announcement.style.left = "-9999px";
+        
+                    const title = box.querySelector(".component-title").textContent.trim();
+                    announcement.textContent = isExpanded ? 
+                        `Description expanded for ${title}` : 
+                        `Description collapsed for ${title}`;
+        
+                    document.body.appendChild(announcement);
+                    setTimeout(() => announcement.remove(), 1000);
+                }
+
+                // Function to handle keyboard interactions (Enter & Space)
+                function handleInnerBoxKeydown(event) {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        handleInnerBoxClick(event);
+                    }
+                }
+
+                
+
+                // Attach event listeners to all inner boxes
+                innerBoxes.forEach(box => {
+                    console.log("Adding hover event to:", box);
+                    
+                    box.addEventListener("click", handleInnerBoxClick);
+                    box.addEventListener("keydown", handleInnerBoxKeydown);
+                    
+                });
+
+                // Ensure French content is hidden initially
+                document.querySelectorAll(".fr").forEach(el => el.style.display = "none");
+                console.log("Script loaded!");
+            });
+        </script>
+
+            <!-- Footer // Initialize current language
+            let currentLang = 'en';
+            let activeBox = null;
+
+            // Function to toggle between languages
+            function toggleLanguage() {
+                // Toggle current language
+                const newLang = currentLang === 'en' ? 'fr' : 'en';
+                
+                // Update HTML lang attribute to support screen readers
+                document.documentElement.lang = newLang;
+
+                // Hide all elements of the current language
+                document.querySelectorAll(`.${currentLang}`).forEach(el => {
+                    el.style.display = 'none';
+                });
+
+                // Show all elements of the new language
+                document.querySelectorAll(`.${newLang}`).forEach(el => {
+                    el.style.display = 'inline';
+                });
+
+                // Update current language
+                currentLang = newLang;
+
+                // Announce language change to screen readers
+                announceLanguageChange(newLang);
+            }
+
+            // Function to announce language change for screen readers
+            function announceLanguageChange(lang) {
+                const announcement = document.createElement('div');
+                announcement.setAttribute('role', 'status');
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.style.position = 'absolute';
+                announcement.style.left = '-9999px';
+                announcement.textContent = lang === 'en' ? 
+                    'Language changed to English' : 
+                    'Langue changée en français';
+                
+                document.body.appendChild(announcement);
+                
+                // Remove announcement after it's been read
+                setTimeout(() => {
+                    announcement.remove();
+                }, 1000);
+            }
+
+            // Function to handle inner box clicks
+            function handleInnerBoxClick(event) {
+                const clickedBox = event.currentTarget;
+                const wasActive = clickedBox.classList.contains('active');
+                
+                // Simply toggle the active state of the clicked box
+                clickedBox.classList.toggle('active');
+                clickedBox.setAttribute('aria-expanded', !wasActive);
+                
+                // Announce to screen readers
+                announceDescriptionToggle(clickedBox, !wasActive);
+            }
+
+            // Function to handle keyboard interactions
+            function handleInnerBoxKeydown(event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    handleInnerBoxClick(event);
+                }
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const innerBoxes = document.querySelectorAll(".inner-box");
+                const hoverBox = document.getElementById("hover-description");
+
+                // Function to detect language (English by default)
+                function getCurrentLanguage() {
+                    return document.documentElement.lang === "fr" ? "fr" : "en";
+                }
+
+                function handleHover(event) {
+                    const box = event.currentTarget;
+                    const lang = getCurrentLanguage();
+                    const description = box.getAttribute(`data-description-${lang}`) || "No description available";
+
+                    hoverBox.textContent = description;
+                    hoverBox.style.visibility = "visible";
+                    hoverBox.style.opacity = "1";
+                }
+
+                // Function to move the tooltip dynamically
+                function moveTooltip(event) {
+                    hoverBox.style.top = `${event.clientY + window.scrollY + 10}px`;
+                    hoverBox.style.left = `${event.clientX + window.scrollX + 10}px`;
+                }
+
+                // Function to hide the tooltip
+                function hideTooltip() {
+                    hoverBox.style.visibility = "hidden";
+                    hoverBox.style.opacity = "0";
+                }
+            });
+            // Function to announce description toggle for screen readers
+            function announceDescriptionToggle(box, isExpanded) {
+                const announcement = document.createElement('div');
+                announcement.setAttribute('role', 'status');
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.style.position = 'absolute';
+                announcement.style.left = '-9999px';
+                
+                const title = box.querySelector('.component-title').textContent.trim();
+                announcement.textContent = isExpanded ? 
+                    `Description expanded for ${title}` : 
+                    `Description collapsed for ${title}`;
+                
+                document.body.appendChild(announcement);
+                setTimeout(() => announcement.remove(), 1000);
+            }
+
+            // Add click and keyboard event listeners to all inner boxes
+            document.querySelectorAll('.inner-box').forEach(box => {
+                box.addEventListener('click', handleInnerBoxClick);
+                box.addEventListener('keydown', handleInnerBoxKeydown);
+                box.addEventListener("mouseenter", handleHover);
+                box.addEventListener("mousemove", moveTooltip);
+                box.addEventListener("mouseleave", hideTooltip);
+            });
+
+            // Hide French content initially
+            document.querySelectorAll('.fr').forEach(el => {
+                el.style.display = 'none';
+            });-->
+        
+</body>
+</html>
